@@ -1,0 +1,12 @@
+{
+    "name": "aner/simple-parser",
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        }
+    },
+    "require": {
+        "fabpot/goutte": "^4.0",
+        "ext-dom": "*"
+    }
+}
