@@ -14,6 +14,13 @@ class Parser
         $this->client = $client;
     }
 
+    /**
+     * Returns text of all elements by given selector
+     *
+     * @param Crawler $crawler Crawler instance
+     * @param string $selector Css selector
+     * @return array Text of each found element
+     */
     public function getElementsText(Crawler $crawler, string $selector): array
     {
         $text = [];
@@ -23,6 +30,13 @@ class Parser
         return $text;
     }
 
+    /**
+     * Returns attribute 'src' of all elements by given selector
+     *
+     * @param Crawler $crawler Crawler instance
+     * @param string $selector Css selector
+     * @return array Src text of each found element
+     */
     public function getImagesSrc(Crawler $crawler, string $selector): array
     {
         $sources = [];
@@ -32,6 +46,13 @@ class Parser
         return $sources;
     }
 
+    /**
+     * Clicks on link by name
+     *
+     * @param Crawler $crawler Crawler instance
+     * @param string $value Link text
+     * @return Crawler Crawler instance of the page by link
+     */
     public function clickLink(Crawler $crawler, string $value): Crawler
     {
         $link = $crawler->selectLink($value)->link();

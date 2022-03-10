@@ -4,20 +4,23 @@ namespace src;
 
 use Symfony\Component\DomCrawler\Crawler;
 
+/**
+ * Parser for shop pages of https://tlock.ru
+ */
 class TradelockParser extends Parser
 {
-    public function parseProducts(string $url): array
+    /**
+     * Collects title, article and preview link of each product
+     * from all pages by base uri
+     *
+     * @param string $uri Uri to parse
+     * @return array Array of Products objects
+     */
+    public function parseProducts(string $uri): array
     {
         $products = [];
 
-        $arrContextOptions= [
-            'ssl' => [
-                'verify_peer'=> false,
-                'verify_peer_name'=> false,
-            ],
-        ];
-
-        $crawler = $this->client->request('GET', $url, $arrContextOptions);
+        $crawler = $this->client->request('GET', $uri);
         $goods = $crawler->filter('div.fgrid__i clearfix div.fgrid__item');
 
         $goods->each(static function (Crawler $node) use (&$products) {
@@ -27,7 +30,6 @@ class TradelockParser extends Parser
             $preview = ($image->count() > 0) ? $image->attr('src') : '';
             $products[] = new Product($title, $article, $preview);
         });
-
 
         return $products;
     }
